@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AR з Model Viewer</title>
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+  <style>
+    body, html {
+      margin: 0; padding: 0; height: 100%;
+      display: flex; flex-direction: column;
+      justify-content: center; align-items: center;
+      background-color: #111; /* темний фон сторінки */
+      color: white;
+      font-family: sans-serif;
+    }
+    model-viewer {
+      width: 100vw;
+      height: 100vh;
+      display: none; /* спочатку сховано */
+      background-color: transparent; /* прозорий фон! */
+      outline: none;
+    }
+    button {
+      padding: 1em 2em;
+      font-size: 1.2em;
+      cursor: pointer;
+      border: none;
+      border-radius: 8px;
+      background-color: #0a84ff;
+      color: white;
+      margin-bottom: 1em;
+    }
+  </style>
+</head>
+<body>
+
+  <button id="ar-button">Відкрити AR</button>
+
+  <model-viewer
+    id="model-viewer"
+    src="planet.glb"
+    ios-src="planet.usdz"
+    alt="3D модель Планета"
+    camera-controls
+    auto-rotate
+    ar
+    ar-modes="webxr scene-viewer quick-look"
+    interaction-prompt="none"
+  ></model-viewer>
+
+  <script>
+    const button = document.getElementById('ar-button');
+    const modelViewer = document.getElementById('model-viewer');
+
+    button.addEventListener('click', () => {
+      modelViewer.style.display = 'block';
+      button.style.display = 'none';
+      modelViewer.activateAR();
+    });
+  </script>
+</body>
+</html>
